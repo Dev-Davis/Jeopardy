@@ -1,3 +1,17 @@
 body {
-  background-color: blue;
+  background-color: #060CE9;
+}
+#categories {
+  display: flex;
+  justify-content: center;
+  /* gap: 0.1%; */
+}
+
+.subject {
+  /* border: 0.2rem solid black; */
+  border-width: 0.3rem 0.2rem 0.3rem 0.3rem;
+  border-style: solid;
+  border-color: black;
+  padding: 2rem 3rem;
+  color: white;
 }

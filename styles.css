@@ -1,0 +1,33 @@
+body {
+  font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  background: linear-gradient(180deg, #071029 0%, #071a2a 100%);
+  /* color: var(--text); */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: white;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.controls {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.scores {
+  display: flex;
+}

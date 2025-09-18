@@ -10,27 +10,44 @@
 
 <body>
   <header>
+    <!-- Header -->
     <h1>Jeopardy</h1>
     <div class="controls">
       <div class="scores">
-        <!-- <div class="team" id="player"> -->
         <input id="playerName" value="Player 1" />
-        <div class="team-score" id="playerScore">0</div>
-        <!-- </div> -->
-        <!-- <div class="team" id="teamB">
-          <input id="teamBName" value="Team B" />
-          <div class="team-score" id="teamBScore">0</div>
-        </div> -->
+        <h1 class="team-score" id="playerScore">0</h1>
       </div>
-      <!-- <select id="activeTeam" title="Active team">
-        <option value="A">Active: Team A</option>
-        <option value="B">Active: Team B</option>
-      </select> -->
       <button id="reset" class="btn">Reset Board</button>
     </div>
   </header>
 
-  <!-- <script src="./script.js"></script> -->
+  <!-- Board -->
+  <main class="board-border">
+    <div class="board" id="board"></div>
+  </main>
+
+  <!-- Modal -->
+  <div id="qModal" class="modal" style="display:none">
+    <div class="modal-card">
+      <div class="modal-header">
+        <strong id="modalCat">Category</strong>
+        <div>
+          <span id="modalVal">$0</span>
+          <button id="closeModal" class="btn secondary" style="margin-left:10px">Close</button>
+        </div>
+      </div>
+      <div class="question" id="modalQ">Question text</div>
+      <div class="answer" id="modalA"></div>
+      <div class="meta">
+        <button id="revealAnswer" class="btn" style="margin-top:12px">Show Answer</button>
+        <button id="correctBtn" class="btn" style="margin-left:8px">Correct</button>
+        <button id="incorrectBtn" class="btn" style="margin-left:8px">Incorrect</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./script.js"></script>
 </body>
 
 </html>

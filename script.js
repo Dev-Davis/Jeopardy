@@ -83,11 +83,11 @@ const categories = [
 
 const values = [200, 400, 600, 800, 1000, 1200];
 
+const questions = {};
+
 function test() {
   return boardData.push([1, 2, 3, "test"]);
 }
-
-console.log(boardData);
 
 const init = () => {
   buildBoard();
@@ -95,15 +95,19 @@ const init = () => {
 
 function blockClick(e) {
   const cell = e.currentTarget;
-  if (cell.classList.contains("disabled")) return;
+  if (cell.classList.contains("disabled")) {
+    return;
+  }
   currentCell = cell;
   const cat = cell.dataset.cat;
+  console.log(cat);
   const row = Number(cell.dataset.row);
-  const qObj = questions[cat][row];
+  console.log(row);
+  const questObj = questions[cat][row];
   modalCat.textContent = cat;
-  modalVal.textContent = "$" + qObj.value;
-  modalQ.textContent = qObj.question;
-  modalA.textContent = qObj.answer;
+  modalVal.textContent = `$${questObj?.value}`;
+  modalQ.textContent = questObj?.question;
+  modalA.textContent = questObj?.answer;
   modalA.style.display = "none";
   modal.style.display = "flex";
 }
@@ -126,10 +130,52 @@ function buildBoard() {
       div.dataset.row = r;
       div.dataset.val = values[r];
       div.textContent = `$${values[r]}`;
-      div.addEventListener("click", blockClick);
+      div.addEventListener("click", onCellClick);
       boardEl.appendChild(div);
     }
   }
+}
+
+const modal = document.getElementById("qModal");
+const modalCategory = document.getElementById("modalCat");
+const modalValue = document.getElementById("modalVal");
+const modalQuestion = document.getElementById("modalQ");
+const modalAnswer = document.getElementById("modalA");
+const revealAnswer = document.getElementById("revealAnswer");
+const correctBtn = document.getElementById("correctBtn");
+const incorrectBtn = document.getElementById("incorrectBtn");
+const closeModal = document.getElementById("closeModal");
+
+let currentCell = null;
+
+const onCellClick = (e) => {
+  const cell = e.currentTarget;
+  if (cell.classList.contains("disabled")) {
+    return;
+  }
+  currentCell = cell;
+  const cat = cell.dataset.cat;
+  const row = Number(cell.dataset.row);
+  const quest = questions[cat][row];
+  modalCategory.textContent = cat;
+  modalValue.textContent = `$${quest.value}`;
+  modalQuestion.textContent = quest?.question;
+  modalAnswer.textContent = quest?.answer;
+  modalAnswer.style.display = "none";
+  modal.style.display = "flex";
+};
+
+revealAnswer.addEventListener("click", () => {
+  modalA.style.display = modalA.style.display === "none" ? "block" : "none";
+});
+
+closeModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+function markAnswered(cell) {
+  cell.classList.add("disabled");
+  cell.textContent = "";
 }
 
 init();

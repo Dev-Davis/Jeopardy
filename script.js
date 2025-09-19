@@ -83,8 +83,6 @@ const categories = [
 
 const values = [200, 400, 600, 800, 1000, 1200];
 
-const questions = {};
-
 function test() {
   return boardData.push([1, 2, 3, "test"]);
 }
@@ -92,25 +90,6 @@ function test() {
 const init = () => {
   buildBoard();
 };
-
-function blockClick(e) {
-  const cell = e.currentTarget;
-  if (cell.classList.contains("disabled")) {
-    return;
-  }
-  currentCell = cell;
-  const cat = cell.dataset.cat;
-  console.log(cat);
-  const row = Number(cell.dataset.row);
-  console.log(row);
-  const questObj = questions[cat][row];
-  modalCat.textContent = cat;
-  modalVal.textContent = `$${questObj?.value}`;
-  modalQ.textContent = questObj?.question;
-  modalA.textContent = questObj?.answer;
-  modalA.style.display = "none";
-  modal.style.display = "flex";
-}
 
 // Build board
 const boardEl = document.getElementById("board");
@@ -122,19 +101,30 @@ function buildBoard() {
     el.textContent = cat;
     boardEl.appendChild(el);
   });
-  for (let r = 0; r < values.length; r++) {
+  for (let i = 0; i < values.length; i++) {
     for (let c = 0; c < categories.length; c++) {
       const div = document.createElement("div");
       div.className = "cell";
       div.dataset.cat = categories[c];
-      div.dataset.row = r;
-      div.dataset.val = values[r];
-      div.textContent = `$${values[r]}`;
+      div.dataset.row = i;
+      div.dataset.val = values[i];
+      div.textContent = `$${values[i]}`;
       div.addEventListener("click", onCellClick);
       boardEl.appendChild(div);
     }
   }
 }
+
+// ***** Modal ***** //
+const questions = {};
+
+categories?.forEach((cat, col) => {
+  questions[cat] = values.map((val, v) => ({
+    value: val,
+    question: `Test quesstion: ${cat} and ${val} has a test answer?`,
+    answer: `Test answer for ${cat} and ${val}`
+  }))
+})
 
 const modal = document.getElementById("qModal");
 const modalCategory = document.getElementById("modalCat");
@@ -162,7 +152,7 @@ const onCellClick = (e) => {
   modalQuestion.textContent = quest?.question;
   modalAnswer.textContent = quest?.answer;
   modalAnswer.style.display = "none";
-  modal.style.display = "flex";
+  // modal.style.display = "flex";
 };
 
 revealAnswer.addEventListener("click", () => {

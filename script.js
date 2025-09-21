@@ -67,11 +67,6 @@ const fetchData = async () => {
   return data;
 };
 
-console.log(fetchData());
-
-// const categories = boardData;
-// const values = boardData;
-
 const categories = [
   "Category 1",
   "Category 2",
@@ -83,9 +78,14 @@ const categories = [
 
 const values = [200, 400, 600, 800, 1000, 1200];
 
-function test() {
-  return boardData.push([1, 2, 3, "test"]);
-}
+const questions = {};
+categories.forEach((cat, ci) => {
+  questions[cat] = values.map((val, vi) => ({
+    value: val,
+    question: `Sample Q: ${cat} for $${val}. What is an example answer?`,
+    answer: `Example answer for ${cat} $${val}`,
+  }));
+});
 
 const init = () => {
   buildBoard();
@@ -116,21 +116,12 @@ function buildBoard() {
 }
 
 // ***** Modal ***** //
-const questions = {};
 
-categories?.forEach((cat, col) => {
-  questions[cat] = values.map((val, v) => ({
-    value: val,
-    question: `Test quesstion: ${cat} and ${val} has a test answer?`,
-    answer: `Test answer for ${cat} and ${val}`
-  }))
-})
-
-const modal = document.getElementById("qModal");
+const modal = document.getElementById("questionModal");
 const modalCategory = document.getElementById("modalCat");
 const modalValue = document.getElementById("modalVal");
-const modalQuestion = document.getElementById("modalQ");
-const modalAnswer = document.getElementById("modalA");
+const modalQuestion = document.getElementById("modalQuestion");
+const modalAnswer = document.getElementById("modalAnswer");
 const revealAnswer = document.getElementById("revealAnswer");
 const correctBtn = document.getElementById("correctBtn");
 const incorrectBtn = document.getElementById("incorrectBtn");
@@ -140,19 +131,19 @@ let currentCell = null;
 
 const onCellClick = (e) => {
   const cell = e.currentTarget;
-  if (cell.classList.contains("disabled")) {
-    return;
-  }
+  if (cell.classList.contains("disabled")) return;
   currentCell = cell;
   const cat = cell.dataset.cat;
+  console.log(cat);
   const row = Number(cell.dataset.row);
-  const quest = questions[cat][row];
-  modalCategory.textContent = cat;
-  modalValue.textContent = `$${quest.value}`;
-  modalQuestion.textContent = quest?.question;
-  modalAnswer.textContent = quest?.answer;
+  console.log(row);
+  const questObj = questions[cat][row];
+  modalCat.textContent = cat;
+  modalVal.textContent = "$" + questObj.value;
+  modalQuestion.textContent = questObj.question;
+  modalAnswer.textContent = questObj.answer;
   modalAnswer.style.display = "none";
-  // modal.style.display = "flex";
+  modal.style.display = "flex";
 };
 
 revealAnswer.addEventListener("click", () => {

@@ -79,11 +79,14 @@ const categories = [
 const values = [200, 400, 600, 800, 1000, 1200];
 
 const questions = {};
-categories.forEach((cat, ci) => {
-  questions[cat] = values.map((val, vi) => ({
+
+categories.forEach((cat) => {
+  // forEach through the categories
+  questions[cat] = values.map((val) => ({
+    // map through the values for each category
     value: val,
-    question: `Sample Q: ${cat} for $${val}. What is an example answer?`,
-    answer: `Example answer for ${cat} $${val}`,
+    question: `Question for $${val}. What is the answer?`,
+    answer: `Answer for $${val}`,
   }));
 });
 
@@ -122,7 +125,7 @@ const modalCategory = document.getElementById("modalCat");
 const modalValue = document.getElementById("modalVal");
 const modalQuestion = document.getElementById("modalQuestion");
 const modalAnswer = document.getElementById("modalAnswer");
-const revealAnswer = document.getElementById("revealAnswer");
+const showAnswer = document.getElementById("showAnswer");
 const correctBtn = document.getElementById("correctBtn");
 const incorrectBtn = document.getElementById("incorrectBtn");
 const closeModal = document.getElementById("closeModal");
@@ -139,15 +142,23 @@ const onCellClick = (e) => {
   console.log(row);
   const questObj = questions[cat][row];
   modalCat.textContent = cat;
-  modalVal.textContent = "$" + questObj.value;
+  modalVal.textContent = "Winnings - $" + questObj.value;
   modalQuestion.textContent = questObj.question;
   modalAnswer.textContent = questObj.answer;
   modalAnswer.style.display = "none";
   modal.style.display = "flex";
 };
 
-revealAnswer.addEventListener("click", () => {
-  modalA.style.display = modalA.style.display === "none" ? "block" : "none";
+showAnswer.addEventListener("click", () => {
+  modalAnswer.style.display = modalAnswer.style.display === "none" ? "block" : "none";
+});
+
+correctBtn.addEventListener("click", () => {
+  alert(`YOU RIGHT!`);
+});
+
+incorrectBtn.addEventListener("click", () => {
+  alert("WRONG! WRONG!");
 });
 
 closeModal.addEventListener("click", () => {

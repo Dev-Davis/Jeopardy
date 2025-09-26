@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <header>
+    <!-- Header -->
+    <h1>Jeopardy</h1>
+    <div class="controls">
+      <div class="scores">
+        <input id="playerName" value="Player 1" />
+        <h1 class="team-score" id="playerScore">0</h1>
+      </div>
+      <button id="reset" class="btn">Reset Board</button>
+    </div>
+  </header>
+
+  <!-- Board -->
+  <main class="board-border">
+    <div class="board" id="board"></div>
+  </main>
+
+  <!-- Modal -->
+  <div id="questionModal" class="modal" style="display:none">
+    <div class="modal-card">
+      <div class="modal-header">
+        <strong id="modalCat">Category</strong>
+        <div>
+          <span id="modalVal">$0</span>
+          <button id="closeModal" class="btn secondary" style="margin-left:10px">Close</button>
+        </div>
+      </div>
+      <div class="question" id="modalQuestion">Question text</div>
+      <div class="answer" id="modalAnswer"></div>
+      <div class="meta">
+        <button id="showAnswer" class="btn" style="margin-top:12px">Show Answer</button>
+        <button id="correctBtn" class="btn" style="margin-left:8px">Correct</button>
+        <button id="incorrectBtn" class="btn" style="margin-left:8px">Incorrect</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+
+</html>
